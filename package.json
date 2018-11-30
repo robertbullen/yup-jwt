@@ -1,0 +1,46 @@
+{
+  "author": {
+    "email": "robert@robertbullen.com",
+    "name": "Robert Bullen"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^8.4.0"
+  },
+  "description": "An extension to the yup library to validate that a string is a JSON Web Token.",
+  "devDependencies": {
+    "@types/jest": "^23.3.10",
+    "@types/jsonwebtoken": "^8.3.0",
+    "@types/yup": "^0.26.2",
+    "jest": "^23.6.0",
+    "prettier": "^1.15.2",
+    "rimraf": "^2.6.2",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.17.0",
+    "typescript": "^3.2.1",
+    "yup": "^0.26.6"
+  },
+  "keywords": [
+    "yup",
+    "jwt",
+    "validate"
+  ],
+  "license": "ISC",
+  "main": "dist/index.js",
+  "name": "yup-jwt",
+  "peerDependencies": {
+    "yup": "^0.26.6"
+  },
+  "scripts": {
+    "build": "npm run compile",
+    "clean": "rimraf dist",
+    "compile": "tsc",
+    "format": "prettier --write",
+    "lint": "tslint --project .",
+    "postbuild": "npm run lint",
+    "prebuild": "npm run clean",
+    "test": "jest"
+  },
+  "types": "dist/index.d.ts",
+  "version": "1.0.0"
+}
