@@ -1,6 +1,6 @@
 # yup-jwt
 
-Adds an extension to the [yup](https://www.npmjs.com/package/yup) library to validate that a string is a decode-able JSON Web Token, using the [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) package.
+Adds an extension to the [yup](https://www.npmjs.com/package/yup) library to validate that a string is a decode-able JSON Web Token. [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) is used to perform the validation under the hood.
 
 ## Usage
 
@@ -12,9 +12,11 @@ npm install yup-jwt
 
 ### Invoking
 
-This project adds a single method yum's `StringSchema` class: `StringSchema.jwt()`. It's TypeScript definition is:
+This project adds a single method to yum: `StringSchema.jwt()`. It's TypeScript definition is:
 
 ```typescript
+// TypeScript module augmentation.
+
 declare module 'yup' {
     export interface StringSchema {
         jwt(message?: string): StringSchema;
@@ -22,7 +24,7 @@ declare module 'yup' {
 }
 ```
 
-Building a schema is accomplished very similarly to any of the other specialized `StringSchema` methods, like `StringSchema.email()` or `StringSchema.url()`:
+Building a schema is accomplished identically to the other specialized `StringSchema` methods, like `StringSchema.email()` or `StringSchema.url()`:
 
 ```javascript
 // A simple example in JavaScript.
