@@ -1,6 +1,6 @@
 # yup-jwt
 
-This project adds an extension to the yup library to validate that a string is a decode-able JSON Web Token.
+Adds an extension to the [yup](https://www.npmjs.com/package/yup) library to validate that a string is a decode-able JSON Web Token, using the [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) package.
 
 ## Usage
 
@@ -45,6 +45,11 @@ The main tools used for authoring this project are:
 - Prettier
 - TSLint
 - Jest/ts-jest
+
+These two tutorials for publishing TypeScript-based projects were useful:
+
+- [Step by step: Building and publishing an NPM Typescript package](https://itnext.io/step-by-step-building-and-publishing-an-npm-typescript-package-44fe7164964c)
+- [How to Create and Publish an NPM module in TypeScript](https://codeburst.io/https-chidume-nnamdi-com-npm-module-in-typescript-12b3b22f0724)
 
 ### Prettier Configuration
 

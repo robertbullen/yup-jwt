@@ -20,9 +20,13 @@
     "typescript": "^3.2.1",
     "yup": "^0.26.6"
   },
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "keywords": [
     "yup",
     "jwt",
+    "jsonwebtoken",
     "validate"
   ],
   "license": "ISC",
@@ -31,15 +35,24 @@
   "peerDependencies": {
     "yup": "^0.26.6"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robertbullen/yup-jwt.git"
+  },
   "scripts": {
     "build": "npm run compile",
     "clean": "rimraf dist",
     "compile": "tsc",
-    "format": "prettier --write",
+    "format": "prettier --write src/**/*.ts test/**/*.ts",
     "lint": "tslint --project .",
     "postbuild": "npm run lint",
+    "postversion": "git push && git push --tags",
     "prebuild": "npm run clean",
-    "test": "jest"
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "test": "jest",
+    "version": "npm run format && git add -A src"
   },
   "types": "dist/index.d.ts",
   "version": "1.0.0"
