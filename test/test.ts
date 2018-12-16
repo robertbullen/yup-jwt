@@ -2,7 +2,7 @@ import 'jest';
 import * as jwt from 'jsonwebtoken';
 import * as yup from 'yup';
 
-import { defaultMessage } from '../src/index';
+import '../src/index';
 
 const modes: Array<'regex' | 'decode'> = ['regex', 'decode'];
 for (const mode of modes) {
@@ -50,16 +50,14 @@ for (const mode of modes) {
         describe('validateSync()', () => {
             describe('throws an error', () => {
                 it('with the default message when no custom message is supplied', () => {
-                    // tslint:disable-next-line:no-invalid-template-strings
-                    const expectedMessage: string = defaultMessage.replace('${path}', 'this');
-                    expect(() => schema.validateSync(nonsenseToken)).toThrowError(expectedMessage);
+                    expect(() => schema.validateSync(nonsenseToken)).toThrowErrorMatchingSnapshot();
                 });
 
                 it('with a custom message when one is supplied', () => {
                     const customMessage: string = 'custom message';
                     const customMessageSchema: yup.StringSchema = yup
                         .string()
-                        .jwt('decode', customMessage);
+                        .jwt(mode, customMessage);
                     expect(() => customMessageSchema.validateSync(nonsenseToken)).toThrowError(
                         customMessage,
                     );

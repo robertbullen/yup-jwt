@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`yup.string().jwt('decode') validateSync() throws an error with the default message when no custom message is supplied 1`] = `"this must be a decodable JSON web token"`;
+
+exports[`yup.string().jwt('regex') validateSync() throws an error with the default message when no custom message is supplied 1`] = `"this must be a JSON web token that satisfies the pattern /^[0-9a-z\\\\-_]+?\\\\.[0-9a-z\\\\-_]+?\\\\.([0-9a-z\\\\-_]+)?$/i"`;

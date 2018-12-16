@@ -13,8 +13,9 @@ declare module 'yup' {
     }
 }
 
+const jwtRegex: RegExp = /^[0-9a-z\-_]+?\.[0-9a-z\-_]+?\.([0-9a-z\-_]+)?$/i;
+
 // tslint:disable-next-line:no-invalid-template-strings
-export const defaultMessage: string = '${path} must be a parsable JSON web token';
 
 // Implement the `StringSchema.jwt()` method.
 yup.addMethod(yup.string, 'jwt', function(
@@ -23,7 +24,10 @@ yup.addMethod(yup.string, 'jwt', function(
     maybeKeyOrMessage: string | yup.JwtKey | undefined,
     maybeMessage: string | undefined,
 ): yup.StringSchema {
-    const checkMessageOrThrow = (value: string | yup.JwtKey | undefined): string => {
+    const checkMessageOrThrow = (
+        value: string | yup.JwtKey | undefined,
+        defaultMessage: string,
+    ): string => {
         if (!(value === undefined || typeof value === 'string')) {
             throw new TypeError(
                 `Invalid argument: 'message' must be a string or undefined but was "${value}"`,
@@ -45,13 +49,27 @@ yup.addMethod(yup.string, 'jwt', function(
     let key: yup.JwtKey;
     switch (mode) {
         case 'regex':
+            message = checkMessageOrThrow(
+                maybeKeyOrMessage,
+                `\${path} must be a JSON web token that satisfies the pattern ${jwtRegex}`,
+            );
+            break;
+
         case 'decode':
-            message = checkMessageOrThrow(maybeKeyOrMessage);
+            message = checkMessageOrThrow(
+                maybeKeyOrMessage,
+                // tslint:disable-next-line:no-invalid-template-strings
+                '${path} must be a decodable JSON web token',
+            );
             break;
 
         case 'verify':
             key = checkKeyOrThrow(maybeKeyOrMessage);
-            message = checkMessageOrThrow(maybeMessage);
+            message = checkMessageOrThrow(
+                maybeMessage,
+                // tslint:disable-next-line:no-invalid-template-strings
+                '${path} must be a verifiable JSON web token',
+            );
             break;
 
         default:
@@ -65,7 +83,7 @@ yup.addMethod(yup.string, 'jwt', function(
         test(this: yup.TestContext, value: string): boolean {
             switch (mode) {
                 case 'regex':
-                    return /^[0-9a-z\-_]+?\.[0-9a-z\-_]+?\.([0-9a-z\-_]+)?$/i.test(value);
+                    return jwtRegex.test(value);
 
                 case 'decode':
                     return !!jwt.decode(value);
