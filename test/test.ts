@@ -6,7 +6,7 @@ import { defaultMessage } from '../src/index';
 
 describe('`yup.string().jwt()`', () => {
     const nonsenseToken: string = 'foo.bar.qux';
-    const schema: yup.StringSchema = yup.string().jwt();
+    const schema: yup.StringSchema = yup.string().jwt('decode');
 
     describe('`isValidSync()`', () => {
         const stringPayload: string = 'payload';
@@ -54,7 +54,7 @@ describe('`yup.string().jwt()`', () => {
 
             it('with a custom message when one is supplied', () => {
                 const customMessage: string = 'custom message';
-                const customMessageSchema: yup.StringSchema = yup.string().jwt(customMessage);
+                const customMessageSchema: yup.StringSchema = yup.string().jwt('decode', customMessage);
                 expect(() => customMessageSchema.validateSync(nonsenseToken)).toThrowError(customMessage);
             });
         });
